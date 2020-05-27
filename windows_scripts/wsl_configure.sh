@@ -4,12 +4,10 @@
 # Get needed scripts
 apt-get update
 apt-get install -y wget
-wget -O 'linux_scripts.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/scripts/stable/linux_scripts/linux_scripts.sh'
-wget -O 'wsl_scripts.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/scripts/stable/windows_scripts/wsl_scripts.sh'
+wget -O 'wsl_scripts.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/WSL-Configuration/stable/windows_scripts/wsl_scripts.sh'
 
 # Source functions
 source wsl_scripts.sh
-source linux_scripts.sh
 
 # Call functions
 wsl_install_packages
