@@ -6,10 +6,16 @@
 # Compilation of functions for Windows Subsystem for Linux.
 
 function wsl_setup_gui() {
-    bash -c "echo export DISPLAY=localhost:0.0" >>~/.bashrc
+    # Parameters
+    local user_name=${1}
+
+    bash -c "echo export DISPLAY=localhost:0.0" >>"/home/${user_name}/.bashrc"
 }
 
 function wsl_configure_bashrc() {
+    # Parameters
+    local user_name=${1}
+
     cat <<\EOF >>"/home/${user_name}/.bashrc"
 
 # Mount network drives
@@ -51,7 +57,7 @@ function wsl_copy_ssh_keys() {
 function wsl_install_packages() {
     apt-get update
     apt-get upgrade -y
-    apt-get install -y git ssh python3 python-pip wireshark nmap wget
+    apt-get install -y git ssh python3 python-pip wireshark nmap wget shellcheck
 }
 
 function wsl_get_username() {
