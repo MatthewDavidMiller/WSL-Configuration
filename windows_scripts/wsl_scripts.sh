@@ -57,7 +57,7 @@ function wsl_copy_ssh_keys() {
 function wsl_install_packages() {
     apt-get update
     apt-get upgrade -y
-    apt-get install -y git ssh python3 python-pip wireshark nmap wget shellcheck
+    apt-get install -y man git ssh python3 python-pip wireshark nmap wget shellcheck
 }
 
 function wsl_get_username() {
