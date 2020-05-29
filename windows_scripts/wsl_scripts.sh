@@ -92,3 +92,21 @@ function configure_git() {
     chown "${user_name}" "/home/${user_name}/.ssh/${key}"
     git config --global core.sshCommand "ssh -i ""/home/${user_name}/.ssh/${key}"" -F /dev/null"
 }
+
+function configure_dns() {
+    # Parameters
+    local dns_server_1=${1}
+    local dns_server_2=${2}
+
+    # Delete resolv.conf
+    rm -f '/etc/resolv.conf'
+
+    cat <<EOF >>'/etc/resolv.conf'
+nameserver "${dns_server_1}"
+nameserver "${dns_server_2}"
+
+EOF
+
+    # Make resolv.conf read only
+    chmod 444 '/etc/resolv.conf'
+}
