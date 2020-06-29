@@ -9,14 +9,14 @@ function wsl_setup_gui() {
     # Parameters
     local user_name=${1}
 
-    bash -c "echo export DISPLAY=localhost:0.0" >>"/home/${user_name}/.bashrc"
+    grep -q ".*echo export DISPLAY=localhost:0\.0" "/home/${user_name}/.bashrc" && sed -i "s,.*echo export DISPLAY=localhost:0\.0.*,echo export DISPLAY=localhost:0\.0," "/home/${user_name}/.bashrc" || printf '%s\n' 'echo export DISPLAY=localhost:0.0' >>"/home/${user_name}/.bashrc"
 }
 
 function wsl_configure_bashrc() {
     # Parameters
     local user_name=${1}
 
-    grep -q ".*sudo mount -t drvfs N: \/mnt\/matt_files" "/home/${user_name}/.bashrc" && sed -i "s,.*sudo mount -t drvfs N: \/mnt\/matt_files.*,sudo mount -t drvfs N: \/mnt\/matt_files," "/home/${user_name}/.bashrc" || printf '%s\n' 'sudo mount -t drvfs N: \/mnt\/matt_files' >>"/home/${user_name}/.bashrc"
+    grep -q ".*sudo mount -t drvfs N: \/mnt\/matt_files" "/home/${user_name}/.bashrc" && sed -i "s,.*sudo mount -t drvfs N: \/mnt\/matt_files.*,sudo mount -t drvfs N: \/mnt\/matt_files," "/home/${user_name}/.bashrc" || printf '%s\n' 'sudo mount -t drvfs N: /mnt/matt_files' >>"/home/${user_name}/.bashrc"
     grep -q ".*# Aliases" "/home/${user_name}/.bashrc" && sed -i "s,.*# Aliases.*,# Aliases," "/home/${user_name}/.bashrc" || printf '%s\n' '# Aliases' >>"/home/${user_name}/.bashrc"
     grep -q ".*alias sudo='sudo '" "/home/${user_name}/.bashrc" && sed -i "s,.*alias sudo='sudo '.*,alias sudo='sudo '," "/home/${user_name}/.bashrc" || printf '%s\n' "alias sudo='sudo '" >>"/home/${user_name}/.bashrc"
     grep -q ".*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\".*,alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" >>"/home/${user_name}/.bashrc"
@@ -54,10 +54,6 @@ function wsl_install_packages() {
     apt-get install -y man git ssh python3 python-pip wireshark nmap wget shellcheck
 }
 
-function wsl_get_username() {
-    user_name=$LOGNAME
-}
-
 function configure_git() {
     # Parameters
     local user_name=${1}
@@ -92,14 +88,9 @@ function configure_dns() {
     local dns_server_1=${1}
     local dns_server_2=${2}
 
-    # Delete resolv.conf
-    rm -f '/etc/resolv.conf'
-
-    cat <<EOF >>'/etc/resolv.conf'
-nameserver ${dns_server_1}
-nameserver ${dns_server_2}
-
-EOF
+    # Add dns servers to resolv.conf
+    grep -q ".*nameserver ${dns_server_1}" '/etc/resolv.conf' && sed -i "s,.*nameserver ${dns_server_1}.*,nameserver ${dns_server_1}," '/etc/resolv.conf' || printf '%s\n' "nameserver ${dns_server_1}" >>'/etc/resolv.conf'
+    grep -q ".*nameserver ${dns_server_2}" '/etc/resolv.conf' && sed -i "s,.*nameserver ${dns_server_2}.*,nameserver ${dns_server_2}," '/etc/resolv.conf' || printf '%s\n' "nameserver ${dns_server_2}" >>'/etc/resolv.conf'
 
     # Make resolv.conf read only
     chmod 444 '/etc/resolv.conf'

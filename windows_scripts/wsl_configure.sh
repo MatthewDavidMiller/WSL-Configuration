@@ -12,10 +12,10 @@ source wsl_scripts.sh
 # Variables
 dns_server_1='10.1.10.5'
 dns_server_2='1.1.1.1'
+user_name='matthew'
 
 # Call functions
 wsl_install_packages
-wsl_get_username
 wsl_setup_gui "${user_name}"
 wsl_configure_bashrc "${user_name}"
 wsl_mount_network_drives
