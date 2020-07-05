@@ -9,7 +9,7 @@ function wsl_setup_gui() {
     # Parameters
     local user_name=${1}
 
-    grep -q ".*echo export DISPLAY=localhost:0\.0" "/home/${user_name}/.bashrc" && sed -i "s,.*echo export DISPLAY=localhost:0\.0.*,echo export DISPLAY=localhost:0\.0," "/home/${user_name}/.bashrc" || printf '%s\n' 'echo export DISPLAY=localhost:0.0' >>"/home/${user_name}/.bashrc"
+    grep -q ".*export DISPLAY=localhost:0\.0" "/home/${user_name}/.bashrc" && sed -i "s,.*export DISPLAY=localhost:0\.0.*,export DISPLAY=localhost:0\.0," "/home/${user_name}/.bashrc" || printf '%s\n' 'export DISPLAY=localhost:0.0' >>"/home/${user_name}/.bashrc"
 }
 
 function wsl_configure_bashrc() {
