@@ -9,22 +9,22 @@ function wsl_setup_gui() {
     # Parameters
     local user_name=${1}
 
-    grep -q ".*export DISPLAY=localhost:0\.0" "/home/${user_name}/.bashrc" && sed -i "s,.*export DISPLAY=localhost:0\.0.*,export DISPLAY=localhost:0\.0," "/home/${user_name}/.bashrc" || printf '%s\n' 'export DISPLAY=localhost:0.0' >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*export DISPLAY=localhost:0\.0" "/home/${user_name}/.bashrc" && sed -i -E "s,.*export DISPLAY=localhost:0\.0.*,export DISPLAY=localhost:0\.0," "/home/${user_name}/.bashrc" || printf '%s\n' 'export DISPLAY=localhost:0.0' >>"/home/${user_name}/.bashrc"
 }
 
 function wsl_configure_bashrc() {
     # Parameters
     local user_name=${1}
 
-    grep -q ".*sudo mount -t drvfs N: \/mnt\/matt_files" "/home/${user_name}/.bashrc" && sed -i "s,.*sudo mount -t drvfs N: \/mnt\/matt_files.*,sudo mount -t drvfs N: \/mnt\/matt_files," "/home/${user_name}/.bashrc" || printf '%s\n' 'sudo mount -t drvfs N: /mnt/matt_files' >>"/home/${user_name}/.bashrc"
-    grep -q ".*# Aliases" "/home/${user_name}/.bashrc" && sed -i "s,.*# Aliases.*,# Aliases," "/home/${user_name}/.bashrc" || printf '%s\n' '# Aliases' >>"/home/${user_name}/.bashrc"
-    grep -q ".*alias sudo='sudo '" "/home/${user_name}/.bashrc" && sed -i "s,.*alias sudo='sudo '.*,alias sudo='sudo '," "/home/${user_name}/.bashrc" || printf '%s\n' "alias sudo='sudo '" >>"/home/${user_name}/.bashrc"
-    grep -q ".*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\".*,alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q ".*alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\".*,alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q ".*alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\".*,alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q ".*alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\".*,alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q ".*alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\".*,alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q ".*alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'" "/home/${user_name}/.bashrc" && sed -i "s,.*alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'.*,alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'," "/home/${user_name}/.bashrc" || printf '%s\n' "alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'" >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*sudo mount -t drvfs N: \/mnt\/matt_files" "/home/${user_name}/.bashrc" && sed -i -E "s,.*sudo mount -t drvfs N: \/mnt\/matt_files.*,sudo mount -t drvfs N: \/mnt\/matt_files," "/home/${user_name}/.bashrc" || printf '%s\n' 'sudo mount -t drvfs N: /mnt/matt_files' >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*# Aliases" "/home/${user_name}/.bashrc" && sed -i -E "s,.*# Aliases.*,# Aliases," "/home/${user_name}/.bashrc" || printf '%s\n' '# Aliases' >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*alias sudo='sudo '" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias sudo='sudo '.*,alias sudo='sudo '," "/home/${user_name}/.bashrc" || printf '%s\n' "alias sudo='sudo '" >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\".*,alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\".*,alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"" >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\".*,alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"" >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\".*,alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"" >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\".*,alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"" >>"/home/${user_name}/.bashrc"
+    grep -q -E ".*alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'.*,alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'," "/home/${user_name}/.bashrc" || printf '%s\n' "alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'" >>"/home/${user_name}/.bashrc"
 }
 
 function wsl_mount_network_drives() {
@@ -89,8 +89,8 @@ function configure_dns() {
     local dns_server_2=${2}
 
     # Add dns servers to resolv.conf
-    grep -q ".*nameserver ${dns_server_1}" '/etc/resolv.conf' && sed -i "s,.*nameserver ${dns_server_1}.*,nameserver ${dns_server_1}," '/etc/resolv.conf' || printf '%s\n' "nameserver ${dns_server_1}" >>'/etc/resolv.conf'
-    grep -q ".*nameserver ${dns_server_2}" '/etc/resolv.conf' && sed -i "s,.*nameserver ${dns_server_2}.*,nameserver ${dns_server_2}," '/etc/resolv.conf' || printf '%s\n' "nameserver ${dns_server_2}" >>'/etc/resolv.conf'
+    grep -q -E ".*nameserver ${dns_server_1}" '/etc/resolv.conf' && sed -i -E "s,.*nameserver ${dns_server_1}.*,nameserver ${dns_server_1}," '/etc/resolv.conf' || printf '%s\n' "nameserver ${dns_server_1}" >>'/etc/resolv.conf'
+    grep -q -E ".*nameserver ${dns_server_2}" '/etc/resolv.conf' && sed -i -E "s,.*nameserver ${dns_server_2}.*,nameserver ${dns_server_2}," '/etc/resolv.conf' || printf '%s\n' "nameserver ${dns_server_2}" >>'/etc/resolv.conf'
 
     # Make resolv.conf read only
     chmod 444 '/etc/resolv.conf'
