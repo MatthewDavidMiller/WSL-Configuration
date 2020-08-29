@@ -105,3 +105,12 @@ EOF
     # Set wsl.conf permissions
     chmod 744 '/etc/wsl.conf'
 }
+
+function install_powershell() {
+    # Download and register Microsoft repository GPG keys
+    wget 'https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb'
+    dpkg -i packages-microsoft-prod.deb
+
+    apt-get update
+    apt-get install -y powershell
+}
