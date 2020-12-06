@@ -13,16 +13,6 @@ source env.sh
 # Source functions
 source wsl_scripts.sh
 
-# Call functions
-wsl_install_packages
-wsl_setup_gui "${user_name}"
-wsl_configure_bashrc "${user_name}"
-wsl_mount_network_drives
-wsl_copy_ssh_keys "${user_name}"
-configure_dns "${dns_server_1}" "${dns_server_2}"
-configure_git "${user_name}"
-install_powershell
-
 PS3='Select Configuration Option: '
 options=("Install Packages Debian" "Install Packages Kali Linux" "WSL Version 1 Setup GUI" "Configure Bashrc" "Mount Network Drives" "Copy SSH Keys" "WSL2 Configure DNS" "Configure Git" "Install PowerShell Core" "Configure Kali Linux GUI" "Quit")
 
