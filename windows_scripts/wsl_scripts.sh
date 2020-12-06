@@ -48,7 +48,7 @@ function wsl_copy_ssh_keys() {
     cp '/mnt/matt_files/SSHConfigs/matt_homelab/pihole_key' "/home/${user_name}/.ssh/pihole_key"
 }
 
-function wsl_install_packages() {
+function wsl_install_packages_debian() {
     apt-get update
     apt-get upgrade -y
     apt-get install -y man git ssh python3 python-pip wireshark nmap wget shellcheck mkdocs
@@ -113,4 +113,15 @@ function install_powershell() {
 
     apt-get update
     apt-get install -y powershell
+}
+
+function configure_kali_linux_gui() {
+    apt-get update
+    apt-get install -y kali-win-kex dbus-x11
+}
+
+function wsl_install_packages_kali() {
+    apt-get update
+    apt-get upgrade -y
+    apt-get install -y manpages git ssh python3 python3-pip wireshark wireshark-gtk nmap wget shellcheck mkdocs
 }
