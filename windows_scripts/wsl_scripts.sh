@@ -16,15 +16,14 @@ function wsl_configure_bashrc() {
     # Parameters
     local user_name=${1}
 
-    grep -q -E ".*sudo mount -t drvfs N: \/mnt\/matt_files" "/home/${user_name}/.bashrc" && sed -i -E "s,.*sudo mount -t drvfs N: \/mnt\/matt_files.*,sudo mount -t drvfs N: \/mnt\/matt_files," "/home/${user_name}/.bashrc" || printf '%s\n' 'sudo mount -t drvfs N: /mnt/matt_files' >>"/home/${user_name}/.bashrc"
-    grep -q -E ".*# Aliases" "/home/${user_name}/.bashrc" && sed -i -E "s,.*# Aliases.*,# Aliases," "/home/${user_name}/.bashrc" || printf '%s\n' '# Aliases' >>"/home/${user_name}/.bashrc"
-    grep -q -E ".*alias sudo='sudo '" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias sudo='sudo '.*,alias sudo='sudo '," "/home/${user_name}/.bashrc" || printf '%s\n' "alias sudo='sudo '" >>"/home/${user_name}/.bashrc"
-    grep -q -E ".*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\".*,alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q -E ".*alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\".*,alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q -E ".*alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\".*,alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q -E ".*alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@VPN.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\".*,alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q -E ".*alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@Pihole.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\".*,alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"" >>"/home/${user_name}/.bashrc"
-    grep -q -E ".*alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'" "/home/${user_name}/.bashrc" && sed -i -E "s,.*alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'.*,alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'," "/home/${user_name}/.bashrc" || printf '%s\n' "alias cd_git='cd /mnt/matt_files/Matthew_Cloud/git'" >>"/home/${user_name}/.bashrc"
+    for i in "${drives_to_mount[@]}"; do
+        grep -q $i "/home/${user_name}/.bashrc" || printf '%s\n' $i >>"/home/${user_name}/.bashrc"
+    done
+
+    for i in "${aliases[@]}"; do
+        grep -q $i "/home/${user_name}/.bashrc" || printf '%s\n' $i >>"/home/${user_name}/.bashrc"
+    done
+
 }
 
 function wsl_mount_network_drives() {
@@ -57,16 +56,6 @@ function wsl_install_packages_debian() {
 function configure_git() {
     # Parameters
     local user_name=${1}
-
-    # Variables
-    # Git username
-    git_name='MatthewDavidMiller'
-    # Email address
-    email='matthewdavidmiller1@gmail.com'
-    # SSH key location
-    key_location='/mnt/matt_files/SSHConfigs/github/github_ssh'
-    # SSH key filename
-    key='github_ssh'
 
     # Setup username
     git config --global user.name "${git_name}"
