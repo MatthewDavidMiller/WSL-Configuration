@@ -1,7 +1,22 @@
 #!/bin/bash
 
 PS3='Select Configuration Option: '
-options=("Install Packages Debian" "Install Packages Kali Linux" "WSL Version 1 Setup GUI" "Configure Bashrc" "Mount Network Drives" "Copy SSH Keys" "WSL2 Configure DNS" "Configure Git" "Install PowerShell Core" "Configure Kali Linux GUI" "Quit")
+options=(
+    "Install Packages Debian"
+    "Install Packages Kali Linux"
+    "WSL Version 1 Setup GUI"
+    "Configure Bashrc"
+    "Mount Network Drives"
+    "Copy SSH Keys"
+    "WSL2 Configure DNS"
+    "Configure Git"
+    "Install PowerShell Core"
+    "Configure Kali Linux GUI"
+    "Create User"
+    "Allow wheel group for sudo"
+    "Add user to wheel group"
+    "Quit"
+)
 
 select options_select in "${options[@]}"; do
     case $options_select in
@@ -44,6 +59,18 @@ select options_select in "${options[@]}"; do
 
     "Configure Kali Linux GUI")
         configure_kali_linux_gui
+        ;;
+
+    "Create User")
+        create_user "${user_name}"
+        ;;
+
+    "Allow wheel group for sudo")
+        allow_wheel_sudo
+        ;;
+
+    "Add user to wheel group")
+        add_user_to_sudo "${user_name}"
         ;;
 
     "Quit")

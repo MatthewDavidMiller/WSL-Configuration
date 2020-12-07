@@ -1,7 +1,11 @@
 #!/bin/bash
 
 PS3='Select Configuration Option: '
-options=("Configure Debian Based Distro" "Configure Arch Linux" "Quit")
+options=(
+    "Configure Debian Based Distro"
+    "Configure Arch Linux"
+    "Quit"
+)
 
 select options_select in "${options[@]}"; do
     case $options_select in

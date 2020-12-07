@@ -170,3 +170,8 @@ function wsl_install_packages_arch() {
         pacman -S --noconfirm --needed $i
     done
 }
+
+function arch_initialize_keyring() {
+    pacman-key --init
+    pacman-key --populate
+}

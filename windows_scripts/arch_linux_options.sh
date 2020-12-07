@@ -1,7 +1,21 @@
 #!/bin/bash
 
 PS3='Select Configuration Option: '
-options=("Install Packages Arch" "WSL Version 1 Setup GUI" "Configure Bashrc" "Mount Network Drives" "Copy SSH Keys" "WSL2 Configure DNS" "Configure Git" "Install PowerShell Core" "Quit")
+options=(
+    "Install Packages Arch"
+    "WSL Version 1 Setup GUI"
+    "Configure Bashrc"
+    "Mount Network Drives"
+    "Copy SSH Keys"
+    "WSL2 Configure DNS"
+    "Configure Git"
+    "Install PowerShell Core"
+    "Initialize Keyring"
+    "Create User"
+    "Allow wheel group for sudo"
+    "Add user to wheel group"
+    "Quit"
+)
 
 select options_select in "${options[@]}"; do
     case $options_select in
@@ -36,6 +50,22 @@ select options_select in "${options[@]}"; do
 
     "Install PowerShell Core")
         install_powershell_arch
+        ;;
+
+    "Initialize Keyring")
+        arch_initialize_keyring
+        ;;
+
+    "Create User")
+        create_user "${user_name}"
+        ;;
+
+    "Allow wheel group for sudo")
+        allow_wheel_sudo
+        ;;
+
+    "Add user to wheel group")
+        add_user_to_sudo "${user_name}"
         ;;
 
     "Quit")
