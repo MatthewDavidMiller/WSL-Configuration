@@ -27,8 +27,8 @@ function wsl_configure_bashrc() {
 }
 
 function wsl_mount_network_drives() {
-    mkdir /mnt/matt_files
-    mount -t drvfs N: /mnt/matt_files
+    mkdir "${network_drive}"
+    mount -t drvfs N: "${network_drive}"
 }
 
 function wsl_copy_ssh_keys() {
@@ -40,17 +40,35 @@ function wsl_copy_ssh_keys() {
     chmod 700 "/home/$user_name/.ssh"
     touch "/home/$user_name/.ssh/authorized_keys"
     chmod 600 "/home/$user_name/.ssh/authorized_keys"
-    cp '/mnt/matt_files/SSHConfigs/matt_homelab/nas_key' "/home/${user_name}/.ssh/nas_key"
-    cp '/mnt/matt_files/SSHConfigs/matt_homelab/openwrt_key' "/home/${user_name}/.ssh/openwrt_key"
-    cp '/mnt/matt_files/SSHConfigs/matt_homelab/proxmox_key' "/home/${user_name}/.ssh/proxmox_key"
-    cp '/mnt/matt_files/SSHConfigs/matt_homelab/vpn_key' "/home/${user_name}/.ssh/vpn_key"
-    cp '/mnt/matt_files/SSHConfigs/matt_homelab/pihole_key' "/home/${user_name}/.ssh/pihole_key"
+
+    for i in "${ssh_keys[@]}"; do
+        cp $i "/home/${user_name}/.ssh/"
+    done
 }
 
 function wsl_install_packages_debian() {
+
+    local debian_packages
+
+    debian_packages=
+    (
+        man
+        git
+        ssh
+        python3
+        python-pip
+        wireshark
+        nmap
+        wget
+        shellcheck
+        mkdocs
+    )
+
     apt-get update
     apt-get upgrade -y
-    apt-get install -y man git ssh python3 python-pip wireshark nmap wget shellcheck mkdocs
+    for i in "${kali_packages[@]}"; do
+        apt-get install -y $i
+    done
 }
 
 function configure_git() {
@@ -95,7 +113,7 @@ EOF
     chmod 744 '/etc/wsl.conf'
 }
 
-function install_powershell() {
+function install_powershell_debian() {
     # Download and register Microsoft repository GPG keys
     wget 'https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb'
     dpkg -i packages-microsoft-prod.deb
@@ -110,7 +128,45 @@ function configure_kali_linux_gui() {
 }
 
 function wsl_install_packages_kali() {
+    local kali_packages
+
+    kali_packages=(
+        manpages
+        git
+        ssh
+        python3
+        python3-pip
+        wireshark
+        wireshark-gtk
+        nmap
+        wget
+        shellcheck
+        mkdocs
+    )
+
     apt-get update
     apt-get upgrade -y
-    apt-get install -y manpages git ssh python3 python3-pip wireshark wireshark-gtk nmap wget shellcheck mkdocs
+    for i in "${kali_packages[@]}"; do
+        apt-get install -y $i
+    done
+}
+
+function wsl_install_packages_arch() {
+    local arch_packages
+
+    arch_packages=(
+        git
+        openssh
+        python
+        python-pip
+        wireshark-qt
+        nmap
+        wget
+        shellcheck
+    )
+
+    pacman -Syu
+    for i in "${arch_packages[@]}"; do
+        pacman -S --noconfirm --needed $i
+    done
 }
