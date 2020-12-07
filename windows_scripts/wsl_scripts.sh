@@ -15,13 +15,13 @@ function wsl_setup_gui() {
 function wsl_configure_bashrc() {
     # Parameters
     local user_name=${1}
+    local aliases
 
-    for i in "${drives_to_mount[@]}"; do
-        grep -q $i "/home/${user_name}/.bashrc" || printf '%s\n' $i >>"/home/${user_name}/.bashrc"
-    done
+    mapfile -t aliases <aliases.txt
+    grep -q "${drive_to_mount}" "/home/${user_name}/.bashrc" || printf '%s\n' "${drive_to_mount}" >>"/home/${user_name}/.bashrc"
 
     for i in "${aliases[@]}"; do
-        grep -q $i "/home/${user_name}/.bashrc" || printf '%s\n' $i >>"/home/${user_name}/.bashrc"
+        grep -q "$i" "/home/${user_name}/.bashrc" || printf '%s\n' "$i" >>"/home/${user_name}/.bashrc"
     done
 
 }
@@ -34,6 +34,9 @@ function wsl_mount_network_drives() {
 function wsl_copy_ssh_keys() {
     # Parameters
     local user_name=${1}
+    local ssh_keys
+
+    mapfile -t ssh_keys <ssh_keys.txt
 
     mkdir -p "/home/${user_name}/.ssh"
     chown "${user_name}" "/home/${user_name}/.ssh"
@@ -42,7 +45,7 @@ function wsl_copy_ssh_keys() {
     chmod 600 "/home/$user_name/.ssh/authorized_keys"
 
     for i in "${ssh_keys[@]}"; do
-        cp $i "/home/${user_name}/.ssh/"
+        cp "$i" "/home/${user_name}/.ssh/"
     done
 }
 
