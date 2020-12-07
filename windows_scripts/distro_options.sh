@@ -20,6 +20,10 @@ select options_select in "${options[@]}"; do
         source arch_linux_options.sh
         ;;
 
+    "Quit")
+        break
+        ;;
+
     *) echo "$REPLY is not an option" ;;
 
     esac
