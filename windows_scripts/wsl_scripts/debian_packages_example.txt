@@ -1,0 +1,4 @@
+man
+git
+ssh
+wget

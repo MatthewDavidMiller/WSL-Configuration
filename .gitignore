@@ -2,3 +2,6 @@ env.sh
 aliases.txt
 ssh_keys.txt
 drives_to_mount.txt
+debian_packages.txt
+kali_packages.txt
+arch_packages.txt

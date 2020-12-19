@@ -17,7 +17,7 @@ function wsl_configure_bashrc() {
     local user_name=${1}
     local aliases
 
-    mapfile -t aliases <aliases.txt
+    mapfile -t aliases <'wsl_scripts/aliases.txt'
     grep -q "${drive_to_mount}" "/home/${user_name}/.bashrc" || printf '%s\n' "${drive_to_mount}" >>"/home/${user_name}/.bashrc"
 
     for i in "${aliases[@]}"; do
@@ -36,7 +36,7 @@ function wsl_copy_ssh_keys() {
     local user_name=${1}
     local ssh_keys
 
-    mapfile -t ssh_keys <ssh_keys.txt
+    mapfile -t ssh_keys <'wsl_scripts/ssh_keys.txt'
 
     mkdir -p "/home/${user_name}/.ssh"
     chown "${user_name}" "/home/${user_name}/.ssh"
@@ -51,25 +51,11 @@ function wsl_copy_ssh_keys() {
 
 function wsl_install_packages_debian() {
 
-    local debian_packages
-
-    debian_packages=
-    (
-        man
-        git
-        ssh
-        python3
-        python-pip
-        wireshark
-        nmap
-        wget
-        shellcheck
-        mkdocs
-    )
+    mapfile -t debian_packages <'wsl_scripts/debian_packages.txt'
 
     apt-get update
     apt-get upgrade -y
-    for i in "${kali_packages[@]}"; do
+    for i in "${debian_packages[@]}"; do
         apt-get install -y $i
     done
 }
@@ -131,21 +117,7 @@ function configure_kali_linux_gui() {
 }
 
 function wsl_install_packages_kali() {
-    local kali_packages
-
-    kali_packages=(
-        manpages
-        git
-        ssh
-        python3
-        python3-pip
-        wireshark
-        wireshark-gtk
-        nmap
-        wget
-        shellcheck
-        mkdocs
-    )
+    mapfile -t kali_packages <'wsl_scripts/kali_packages.txt'
 
     apt-get update
     apt-get upgrade -y
@@ -155,18 +127,7 @@ function wsl_install_packages_kali() {
 }
 
 function wsl_install_packages_arch() {
-    local arch_packages
-
-    arch_packages=(
-        git
-        openssh
-        python
-        python-pip
-        wireshark-qt
-        nmap
-        wget
-        shellcheck
-    )
+    mapfile -t arch_packages <'wsl_scripts/arch_packages.txt'
 
     pacman -Syu
     for i in "${arch_packages[@]}"; do

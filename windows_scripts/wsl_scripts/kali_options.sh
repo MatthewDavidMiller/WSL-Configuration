@@ -2,7 +2,6 @@
 
 PS3='Select Configuration Option: '
 options=(
-    "Install Packages Debian"
     "Install Packages Kali Linux"
     "WSL Version 1 Setup GUI"
     "Configure Bashrc"
@@ -20,10 +19,6 @@ options=(
 
 select options_select in "${options[@]}"; do
     case $options_select in
-
-    "Install Packages Debian")
-        wsl_install_packages_debian
-        ;;
 
     "Install Packages Kali Linux")
         wsl_install_packages_kali

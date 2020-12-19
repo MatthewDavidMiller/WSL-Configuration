@@ -3,16 +3,17 @@
 # WSL disto used is Debian 10
 
 # Get needed scripts
-wget -O 'wsl_scripts.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/WSL-Configuration/stable/windows_scripts/wsl_scripts.sh'
-wget -O 'distro_options.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/WSL-Configuration/stable/windows_scripts/distro_options.sh'
-wget -O 'functions.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/Bash-Common-Functions/main/functions/functions.sh'
+mkdir -p 'wsl_scripts'
+wget -O 'wsl_scripts/wsl_scripts.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/WSL-Configuration/stable/windows_scripts/wsl_scripts/wsl_scripts.sh'
+wget -O 'wsl_scripts/distro_options.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/WSL-Configuration/stable/windows_scripts/wsl_scripts/distro_options.sh'
+wget -O 'wsl_scripts/functions.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/Bash-Common-Functions/main/functions/functions.sh'
 
 # Source variables
-source env.sh
+source 'wsl_scripts/env.sh'
 
 # Source functions
-source wsl_scripts.sh
-source functions.sh
+source 'wsl_scripts/wsl_scripts.sh'
+source 'wsl_scripts/functions.sh'
 
 # Source options
-source distro_options.sh
+source 'wsl_scripts/distro_options.sh'
