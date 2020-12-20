@@ -60,7 +60,7 @@ select options_select in "${options[@]}"; do
         ;;
 
     "Add user to sudo group")
-        add_user_to_sudo "${user_name}"
+        add_user_to_sudo_group "${user_name}"
         ;;
 
     "Quit")
