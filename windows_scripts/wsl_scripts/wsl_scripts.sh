@@ -141,6 +141,8 @@ function arch_initialize_keyring() {
 }
 
 function wsl2_setup_gui() {
+    # Credits to Surya Raj, https://medium.com/@surya.raj/how-to-use-gui-applications-in-wsl-wsl2-distros-using-vcxsrv-5a10eef14073
+
     # Parameters
     local user_name=${1}
 
