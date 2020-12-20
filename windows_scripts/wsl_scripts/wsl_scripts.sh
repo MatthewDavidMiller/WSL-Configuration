@@ -146,5 +146,5 @@ function wsl2_setup_gui() {
     # Parameters
     local user_name=${1}
 
-    printf '%s\n' "export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0" >>"/home/${user_name}/.bashrc"
+    printf '%s\n' "export DISPLAY=\$(ip route get 8.8.8.8 | sed -nr 's/.*src ([^\ ]+).*/\1/p'):0" >>"/home/${user_name}/.bashrc"
 }
