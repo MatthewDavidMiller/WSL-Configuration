@@ -139,3 +139,10 @@ function arch_initialize_keyring() {
     pacman-key --init
     pacman-key --populate
 }
+
+function wsl2_setup_gui() {
+    # Parameters
+    local user_name=${1}
+
+    printf '%s\n' "export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0" >>"/home/${user_name}/.bashrc"
+}

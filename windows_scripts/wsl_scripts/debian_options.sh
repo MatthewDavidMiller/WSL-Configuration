@@ -4,6 +4,7 @@ PS3='Select Configuration Option: '
 options=(
     "Install Packages Debian"
     "WSL Version 1 Setup GUI"
+    "WSL Version 2 Setup GUI"
     "Configure Bashrc"
     "Mount Network Drives"
     "Copy SSH Keys"
@@ -24,6 +25,10 @@ select options_select in "${options[@]}"; do
 
     "WSL Version 1 Setup GUI")
         wsl_setup_gui "${user_name}"
+        ;;
+
+    "WSL Version 2 Setup GUI")
+        wsl2_setup_gui "${user_name}"
         ;;
 
     "Configure Bashrc")
