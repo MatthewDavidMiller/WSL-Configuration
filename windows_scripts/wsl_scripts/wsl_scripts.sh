@@ -111,6 +111,17 @@ function install_powershell_debian() {
     apt-get install -y powershell
 }
 
+function install_powershell_ubuntu() {
+    # Credits to Microsoft, https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
+    apt-get update
+    apt-get install -y wget apt-transport-https software-properties-common
+    wget -q 'https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb'
+    dpkg -i 'packages-microsoft-prod.deb'
+    apt-get update
+    add-apt-repository universe
+    apt-get install -y powershell
+}
+
 function configure_kali_linux_gui() {
     apt-get update
     apt-get install -y kali-win-kex dbus-x11

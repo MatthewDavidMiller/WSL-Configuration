@@ -2,6 +2,7 @@
 
 PS3='Select Configuration Option: '
 options=(
+    "Configure Ubuntu"
     "Configure Debian"
     "Configure Kali Linux"
     "Configure Arch Linux"
@@ -10,6 +11,11 @@ options=(
 
 select options_select in "${options[@]}"; do
     case $options_select in
+
+    "Configure Ubuntu")
+        wget -O 'wsl_scripts/ubuntu_options.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/WSL-Configuration/stable/windows_scripts/wsl_scripts/ubuntu_options.sh'
+        source 'wsl_scripts/ubuntu_options.sh'
+        ;;
 
     "Configure Debian")
         wget -O 'wsl_scripts/debian_options.sh' 'https://raw.githubusercontent.com/MatthewDavidMiller/WSL-Configuration/stable/windows_scripts/wsl_scripts/debian_options.sh'
