@@ -18,12 +18,18 @@ function wsl_configure_bashrc() {
     local aliases
 
     mapfile -t aliases <'wsl_scripts/aliases.txt'
-    grep -q "${drive_to_mount}" "/home/${user_name}/.bashrc" || printf '%s\n' "${drive_to_mount}" >>"/home/${user_name}/.bashrc"
 
     for i in "${aliases[@]}"; do
         grep -q "$i" "/home/${user_name}/.bashrc" || printf '%s\n' "$i" >>"/home/${user_name}/.bashrc"
     done
 
+}
+
+function wsl_mount_network_drive() {
+    # Parameters
+    local user_name=${1}
+
+    grep -q "${drive_to_mount}" "/home/${user_name}/.bashrc" || printf '%s\n' "${drive_to_mount}" >>"/home/${user_name}/.bashrc"
 }
 
 function wsl_mount_network_drives() {
